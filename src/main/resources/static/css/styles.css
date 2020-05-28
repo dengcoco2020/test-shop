@@ -1,0 +1,15 @@
+body {
+    padding: 20px;
+}
+
+.product-card {
+    margin: 0px;
+    width: 900px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #c9c9c9;
+    border-radius: 5px;
+}
