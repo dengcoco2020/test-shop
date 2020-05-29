@@ -4,6 +4,7 @@ import com.gofluent.testshop.datasource.CartRepository;
 import com.gofluent.testshop.model.Cart;
 import com.gofluent.testshop.model.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,15 +19,13 @@ public class CartController {
     @GetMapping
     public JsonObject getAllItems() {
         List<Cart> cartItems = (List<Cart>) cartRepository.findAll();
-        JsonObject jsonObject = new JsonObject(200, "GET all cart items", cartItems.size(), cartItems);
-        return jsonObject;
+        return new JsonObject(200, "GET all cart items", cartItems.size(), cartItems);
     }
 
     @GetMapping(path = "{token}")
     public JsonObject getAllCartItems(@PathVariable("token") String token) {
         List<Cart> cartItems = cartRepository.findAllCartItems(token);
-        JsonObject jsonObject = new JsonObject(200, "GET all cart items", cartItems.size(), cartItems);
-        return jsonObject;
+        return new JsonObject(200, "GET all cart items", cartItems.size(), cartItems);
     }
 
     @PostMapping
@@ -41,16 +40,13 @@ public class CartController {
             cartRepository.updateItemCount(cart.getToken(), cart.getBrand_name());
             message = "UPDATE item count";
         }
-        JsonObject jsonObject = new JsonObject(200, message, 0, cart);
-        return jsonObject;
+        return new JsonObject(200, message, 0, cart);
     }
 
     @DeleteMapping(path = "{token}/{brand_name}")
     public JsonObject deleteCartItem(@PathVariable("token") String token, @PathVariable("brand_name") String brand_name) {
         cartRepository.deleteCartItem(token, brand_name);
-        JsonObject jsonObject = new JsonObject(200, "DELETE cart item", 0, null);
-        return jsonObject;
+        return new JsonObject(200, "DELETE cart item", 0, null);
     }
-
 
 }
